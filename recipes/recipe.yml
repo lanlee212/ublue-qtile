@@ -12,7 +12,6 @@ modules:
         destination: /
 
   - type: dnf
-    repos: []
     install:
       packages:
         # Qtile and deps
