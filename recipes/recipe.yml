@@ -70,12 +70,12 @@ modules:
       - xorg-x11-drv-libinput
     remove: []
 
-  - type: flatpak
+  - type: default-flatpaks
     configurations:
       - scope: system
         notify: true
-    install:
-      - org.mozilla.firefox
-      - org.gimp.GIMP
+        install:
+          - org.mozilla.firefox
+          - org.gimp.GIMP
 
   - type: signing
