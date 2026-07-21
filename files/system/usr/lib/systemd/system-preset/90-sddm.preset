@@ -1,0 +1,2 @@
+# Enable SDDM as the default display manager
+enable sddm.service
