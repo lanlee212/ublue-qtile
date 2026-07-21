@@ -14,61 +14,63 @@ modules:
   - type: dnf
     repos: []
     install:
-      # Qtile and deps
-      - qtile
-      - qtile-extras
-      - python-pywlroots
-      # Display manager
-      - sddm
-      - sddm-kcm
-      # Terminal
-      - alacritty
-      - kitty
-      # Launcher
-      - rofi
-      - dmenu
-      - fzf
-      # Notifications
-      - dunst
-      # File managers
-      - thunar
-      - nemo
-      # Text editor
-      - geany
-      # System tools
-      - htop
-      - btop
-      - fastfetch
-      - nano
-      # Screenshot
-      - grim
-      - slurp
-      # Clipboard
-      - wl-clipboard
-      - xclip
-      # Themes / Icons
-      - papirus-icon-theme
-      - adw-gtk3-theme
-      # X11 tools
-      - picom
-      - nitrogen
-      - feh
-      - lxappearance
-      # Audio / Bluetooth / Network
-      - pavucontrol
-      - blueman
-      - network-manager-applet
-      - pipewire-pulse
-      # Fonts
-      - google-noto-sans-fonts
-      - google-noto-emoji-fonts
-      - google-noto-cjk-fonts
-      # Xorg (needed for qtile X11 backend)
-      - xorg-x11-server-Xorg
-      - xorg-x11-xinit
-      - xorg-x11-drv-evdev
-      - xorg-x11-drv-libinput
-    remove: []
+      packages:
+        # Qtile and deps
+        - qtile
+        - qtile-extras
+        - python-pywlroots
+        # Display manager
+        - sddm
+        - sddm-kcm
+        # Terminal
+        - alacritty
+        - kitty
+        # Launcher
+        - rofi
+        - dmenu
+        - fzf
+        # Notifications
+        - dunst
+        # File managers
+        - thunar
+        - nemo
+        # Text editor
+        - geany
+        # System tools
+        - htop
+        - btop
+        - fastfetch
+        - nano
+        # Screenshot
+        - grim
+        - slurp
+        # Clipboard
+        - wl-clipboard
+        - xclip
+        # Themes / Icons
+        - papirus-icon-theme
+        - adw-gtk3-theme
+        # X11 tools
+        - picom
+        - nitrogen
+        - feh
+        - lxappearance
+        # Audio / Bluetooth / Network
+        - pavucontrol
+        - blueman
+        - network-manager-applet
+        - pipewire-pulse
+        # Fonts
+        - google-noto-sans-fonts
+        - google-noto-emoji-fonts
+        - google-noto-cjk-fonts
+        # Xorg (needed for qtile X11 backend)
+        - xorg-x11-server-Xorg
+        - xorg-x11-xinit
+        - xorg-x11-drv-evdev
+        - xorg-x11-drv-libinput
+    remove:
+      packages: []
 
   - type: default-flatpaks
     configurations:
