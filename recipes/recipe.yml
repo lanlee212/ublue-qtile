@@ -63,10 +63,11 @@ modules:
   - type: script
     snippets:
       # Build i3lock-color from source (not packaged in Fedora). Pinned commit
-      # abdfd4d = master as of 2026-08-14; installs as /usr/local/bin/i3lock.
+      # abdfd4d = master as of 2026-08-14; prefix /usr (base-main's /usr/local
+      # is a symlink, not a directory). Installs as /usr/bin/i3lock.
       - dnf -y install git gcc make pkgconfig autoconf automake libtool cairo-devel fontconfig-devel freetype-devel libev-devel libjpeg-turbo-devel libX11-devel libXext-devel libxcb-devel libxkbcommon-devel libxkbcommon-x11-devel pam-devel xcb-util-devel xcb-util-image-devel xcb-util-keysyms-devel xcb-util-wm-devel xcb-util-xrm-devel
       - git clone https://github.com/PandorasFox/i3lock-color /tmp/i3lock-color && cd /tmp/i3lock-color && git checkout abdfd4dd8f538c8a3f40ddd6af20a7c38438ae4c
-      - cd /tmp/i3lock-color && autoreconf -i && ./configure && cd "$(ls -d /tmp/i3lock-color/*-pc-linux-gnu | head -1)" && make && make install
+      - cd /tmp/i3lock-color && autoreconf -i && ./configure --prefix=/usr && cd "$(ls -d /tmp/i3lock-color/*-pc-linux-gnu | head -1)" && make && make install
       # Remove build deps + source to keep the image lean
       - dnf -y remove git gcc make pkgconfig autoconf automake libtool cairo-devel fontconfig-devel freetype-devel libev-devel libjpeg-turbo-devel libX11-devel libXext-devel libxcb-devel libxkbcommon-devel libxkbcommon-x11-devel pam-devel xcb-util-devel xcb-util-image-devel xcb-util-keysyms-devel xcb-util-wm-devel xcb-util-xrm-devel && rm -rf /tmp/i3lock-color
 
