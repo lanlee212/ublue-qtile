@@ -1,3 +1,2 @@
-*.iso
-*.iso.CHECKSUM
-output/
+__pycache__/
+*.pyc
