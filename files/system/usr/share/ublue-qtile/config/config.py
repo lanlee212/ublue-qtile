@@ -54,7 +54,7 @@ def show_power_menu(qtile):
 
 
 mod = "mod4"
-terminal = "ghostty"
+terminal = "kitty"
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -142,7 +142,7 @@ for i in groups:
 # scratch pad and key binds below
 groups.append(
     ScratchPad("scratchpad", [
-        DropDown('terminal',terminal, match=Match(wm_class='com.mitchellh.ghostty'),height = 0.45,width = 0.8,x = 0.1,y = 0.01,on_focus_lost_hide = False, warp_pointer = False, ),
+        DropDown('terminal',terminal, match=Match(wm_class='kitty'),height = 0.45,width = 0.8,x = 0.1,y = 0.01,on_focus_lost_hide = False, warp_pointer = False, ),
         # DropDown('fm','thunar',height = 0.8,width = 0.8,x = 0.1,y = 0.1,on_focus_lost_hide = False, warp_pointer = False, ),
         DropDown('fm','nemo',height = 0.8,width = 0.8,x = 0.1,y = 0.1,on_focus_lost_hide = False, warp_pointer = False, ),
         DropDown('sol','sol',height = 0.5,width = 0.5,x = 0.25,y = 0.3,on_focus_lost_hide = True, warp_pointer = False, ),
@@ -208,7 +208,9 @@ screens = [
                 #widget.WindowTabs(),
                 widget.TaskList (border = colors[6]),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                widget.ALSAWidget(update_interval=0,bar_colour_normal=colors[4],bar_colour_loud=colors[3],bar_colour_high=colors[5],bar_text_foreground=colors[2]),
+                # ALSAWidget omitted on the image: pyalsaaudio isn't in Fedora;
+                # volume keys still work via pactl (pipewire-pulse)
+                #widget.ALSAWidget(update_interval=0,bar_colour_normal=colors[4],bar_colour_loud=colors[3],bar_colour_high=colors[5],bar_text_foreground=colors[2]),
                 #widget.StatusNotifier(icon_size = 16, icon_theme ="Papirus-Dark"),
                 widget.Systray(icon_size = 16,icon_theme ="Papirus-Dark"),
                 widget.GenPollText(func=bell_text, update_interval=15, mouse_callbacks={"Button1": lazy.function(show_notif_history)}, foreground=colors[1]),

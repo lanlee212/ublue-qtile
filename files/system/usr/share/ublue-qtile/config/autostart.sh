@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 picom -b &
-# polkit agent: Fedora keeps it in /usr/libexec, Arch in /usr/lib/polkit-gnome
-POLKIT_AGENT="$(command -v polkit-gnome-authentication-agent-1 || echo /usr/libexec/polkit-gnome-authentication-agent-1)"
-"$POLKIT_AGENT" &
+# polkit agent: lxpolkit on the image (polkit-gnome isn't in Fedora 44)
+lxpolkit &
 dunst &
 nm-applet --indicator &
 wait -n &

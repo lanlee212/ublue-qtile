@@ -21,12 +21,10 @@ modules:
         - qtile
         - qtile-extras
         - python3-xcffib
-        # ALSAWidget in the bar needs pyalsaaudio
-        - python3-pyalsaaudio
         # Display manager
         - sddm
-        # Terminal (config default: ghostty)
-        - ghostty
+        # Terminal (image default: kitty — ghostty is not in Fedora)
+        - kitty
         # Notifications
         - dunst
         - libnotify
@@ -35,13 +33,12 @@ modules:
         - ImageMagick
         - feh
         - bc
-        - xorg-x11-utils
-        - xorg-x11-server-utils
+        - xrandr
         # Autostart stack
         - picom
-        - polkit-gnome
+        - lxpolkit
         - network-manager-applet
-        - kdeconnect
+        - kde-connect
         - blueman
         - remmina
         - scrot
@@ -50,7 +47,7 @@ modules:
         - brave-browser
         # Themes / icons / fonts
         - papirus-icon-theme
-        - cantarell-fonts
+        - abattis-cantarell-fonts
         - google-noto-emoji-fonts
         # Xorg (qtile X11 backend)
         - xorg-x11-server-Xorg
