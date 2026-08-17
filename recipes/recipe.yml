@@ -52,6 +52,10 @@ modules:
         - pipewire-pulse
         # Browser: Brave Origin (official package from the Brave repo)
         - brave-origin
+        # Extra apps (RPM Fusion nonfree is shipped via files module: steam)
+        - aisleriot
+        - nemo
+        - steam
         # Themes / icons / fonts
         - papirus-icon-theme
         - abattis-cantarell-fonts
