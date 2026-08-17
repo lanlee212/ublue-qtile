@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 picom -b &
+# wallpaper (shipped in the image at a system path)
+feh --bg-fill /usr/share/ublue-qtile/wallpaper/od_arch.png &
 # polkit agent: lxpolkit on the image (polkit-gnome isn't in Fedora 44)
 lxpolkit &
 dunst &

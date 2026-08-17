@@ -54,7 +54,7 @@ def show_power_menu(qtile):
 
 
 mod = "mod4"
-terminal = "kitty"
+terminal = "ghostty"
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -142,7 +142,7 @@ for i in groups:
 # scratch pad and key binds below
 groups.append(
     ScratchPad("scratchpad", [
-        DropDown('terminal',terminal, match=Match(wm_class='kitty'),height = 0.45,width = 0.8,x = 0.1,y = 0.01,on_focus_lost_hide = False, warp_pointer = False, ),
+        DropDown('terminal',terminal, match=Match(wm_class='com.mitchellh.ghostty'),height = 0.45,width = 0.8,x = 0.1,y = 0.01,on_focus_lost_hide = False, warp_pointer = False, ),
         # DropDown('fm','thunar',height = 0.8,width = 0.8,x = 0.1,y = 0.1,on_focus_lost_hide = False, warp_pointer = False, ),
         DropDown('fm','nemo',height = 0.8,width = 0.8,x = 0.1,y = 0.1,on_focus_lost_hide = False, warp_pointer = False, ),
         DropDown('sol','sol',height = 0.5,width = 0.5,x = 0.25,y = 0.3,on_focus_lost_hide = True, warp_pointer = False, ),
