@@ -18,7 +18,6 @@ modules:
       copr:
         - scottames/ghostty
         - tokariew/i3lock-color
-        - bieszczaders/kernel-cachyos
     install:
       packages:
         # Qtile + popup toolkit (launcher / notification history / power menu)
@@ -67,15 +66,10 @@ modules:
         - xorg-x11-xinit
         - xorg-x11-drv-evdev
         - xorg-x11-drv-libinput
-        # CachyOS kernel is installed in the script module (after dracut hook
-        # shim) — its %posttrans runs dracut, which fails inside the build.
         # Qt theming (qt6ct platform theme + OneDark color scheme, profile.d env)
         - qt5ct
         - qt6ct
         # Flatpak (ProtonPlus etc.) + git (homebrew runtime dep)
-        # NOTE: kernel-cachyos is NOT here — it must install in the script
-        # module after the dracut hooks are shimmed (its %posttrans runs
-        # dracut, which fails mid-dnf-module in the container)
         - flatpak
         - git
     remove:
@@ -83,19 +77,6 @@ modules:
 
   - type: script
     snippets:
-      # Replace the stock Fedora kernel with the CachyOS kernel (kernel-cachyos
-      # from the COPR above; dnf pulls the latest build on every image rebuild).
-      # Same hook-shim approach as bazzite's install-kernel-akmods.
-      - cd /usr/lib/kernel/install.d && for h in 05-rpmostree.install 50-dracut.install; do [ -f "$h" ] && mv "$h" "$h.bak"; done && { echo '#!/bin/sh'; echo 'exit 0'; } > 05-rpmostree.install && { echo '#!/bin/sh'; echo 'exit 0'; } > 50-dracut.install && chmod +x 05-rpmostree.install 50-dracut.install
-      - for pkg in kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra kernel-devel kernel-devel-matched kernel-tools kernel-tools-libs kernel-tools-libs-devel; do rpm -e --nodeps "$pkg" 2>/dev/null || true; done && rm -rf /usr/lib/modules
-      - dnf -y install kernel-cachyos
-      # restore the real hooks for first-boot dracut (rpm-ostree runs it)
-      - cd /usr/lib/kernel/install.d && for h in 05-rpmostree.install 50-dracut.install; do [ -f "$h.bak" ] && mv -f "$h.bak" "$h"; done
-      # Bake a full (non-hostonly) initramfs so the root device driver (nvme/
-      # ahci) is ALWAYS present — deployment-time dracut can fail silently on
-      # the client, causing "VFS: Unable to mount root fs" panics. machine-id
-      # is absent in containers; all-zeros is regenerated at first boot.
-      - test -s /etc/machine-id || echo -n "00000000000000000000000000000000" > /etc/machine-id && dracut --no-hostonly --kver "$(ls /usr/lib/modules | head -1)" -f "/usr/lib/modules/$(ls /usr/lib/modules | head -1)/initramfs.img"
       # Homebrew: prebuilt install from the ublue-os/brew image, shipped as a
       # tar; brew-setup.service extracts + chowns to uid 1000 at first boot.
       - curl -sL -o /tmp/crane.tar.gz https://github.com/google/go-containerregistry/releases/download/v0.20.3/go-containerregistry_Linux_x86_64.tar.gz && tar -xzf /tmp/crane.tar.gz -C /usr/bin crane && chmod +x /usr/bin/crane
