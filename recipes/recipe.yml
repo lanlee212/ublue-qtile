@@ -13,6 +13,8 @@ modules:
 
   - type: dnf
     repos:
+      files:
+        - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
       copr:
         - scottames/ghostty
         - tokariew/i3lock-color
@@ -48,12 +50,8 @@ modules:
         - remmina
         - scrot
         - pipewire-pulse
-        # Browser: Brave Origin (official GitHub release zip, script module
-        # below; brave-origin wrapper shipped via files). Deps from AUR pkg.
-        - gtk3
-        - nss
-        - alsa-lib
-        - libXScrnSaver
+        # Browser: Brave Origin (official package from the Brave repo)
+        - brave-origin
         # Themes / icons / fonts
         - papirus-icon-theme
         - abattis-cantarell-fonts
@@ -65,17 +63,5 @@ modules:
         - xorg-x11-drv-libinput
     remove:
       packages: []
-
-  - type: script
-    snippets:
-      # Brave Origin: official Linux build from brave/brave-browser GitHub
-      # releases (same source the AUR brave-origin-bin uses). Extracted to
-      # /opt/brave-origin-bin; the shipped /usr/bin/brave-origin wrapper execs it.
-      - curl -L -o /tmp/brave-origin.zip https://github.com/brave/brave-browser/releases/download/v1.93.136/brave-origin-1.93.136-linux-amd64.zip
-      - cd /tmp && python3 -m zipfile -e brave-origin.zip /tmp/bo && mkdir -p /opt/brave-origin-bin && cp -a /tmp/bo/. /opt/brave-origin-bin/ && chmod 4755 /opt/brave-origin-bin/chrome-sandbox
-      # icons (mirrors the AUR package layout)
-      - for s in 16 24 32 48 64 128 256; do install -Dm644 /opt/brave-origin-bin/product_logo_${s}.png /usr/share/icons/hicolor/${s}x${s}/apps/brave-origin.png; done
-      # cleanup
-      - rm -rf /tmp/brave-origin.zip /tmp/bo
 
   - type: signing
