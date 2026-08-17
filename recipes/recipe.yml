@@ -67,12 +67,15 @@ modules:
         - xorg-x11-xinit
         - xorg-x11-drv-evdev
         - xorg-x11-drv-libinput
-        # CachyOS kernel (performance, auto-updates from the COPR per rebuild)
-        - kernel-cachyos
+        # CachyOS kernel is installed in the script module (after dracut hook
+        # shim) — its %posttrans runs dracut, which fails inside the build.
         # Qt theming (qt6ct platform theme + OneDark color scheme, profile.d env)
         - qt5ct
         - qt6ct
         # Flatpak (ProtonPlus etc.) + git (homebrew runtime dep)
+        # NOTE: kernel-cachyos is NOT here — it must install in the script
+        # module after the dracut hooks are shimmed (its %posttrans runs
+        # dracut, which fails mid-dnf-module in the container)
         - flatpak
         - git
     remove:
