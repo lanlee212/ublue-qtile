@@ -8,3 +8,6 @@ if [ -d /usr/share/ublue-qtile/config ] && [ ! -f "${HOME}/.config/qtile/config.
     cp -rn /usr/share/ublue-qtile/picom/picom.conf "${HOME}/.config/picom.conf"
     chmod +x "${HOME}/.config/qtile/autostart.sh"
 fi
+
+# Qt6 apps: use the qt6ct platform theme (Fusion + OneDark color scheme)
+export QT_QPA_PLATFORMTHEME=qt6ct

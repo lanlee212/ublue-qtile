@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=OneDark
+Comment=OneDark palette GTK theme (hand-written for ublue-qtile)
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=OneDark
