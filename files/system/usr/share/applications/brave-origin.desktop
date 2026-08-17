@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Brave Origin
+Comment=The minimalist browser from the makers of Brave
+Exec=/usr/bin/brave-origin %U
+Terminal=false
+Type=Application
+Icon=brave-origin
+StartupNotify=true
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
