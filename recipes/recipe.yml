@@ -17,6 +17,7 @@ modules:
         - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
       copr:
         - scottames/ghostty
+        - tokariew/i3lock-color
     install:
       packages:
         # Qtile + popup toolkit (launcher / notification history / power menu)
@@ -30,12 +31,16 @@ modules:
         # Notifications
         - dunst
         - libnotify
-        # Lockscreen stack (betterlockscreen script + source-built i3lock-color)
+        # Lockscreen stack (betterlockscreen script shipped via files;
+        # i3lock-color from tokariew COPR — the balamurali27 RPM's deps
+        # xorg-x11-utils/server-utils were removed from F44)
         - xautolock
         - ImageMagick
         - feh
         - bc
         - xrandr
+        - xset
+        - i3lock-color
         # Autostart stack
         - picom
         - lxpolkit
@@ -45,8 +50,8 @@ modules:
         - remmina
         - scrot
         - pipewire-pulse
-        # Browser (Mod+Shift+N via brave-origin wrapper)
-        - brave-origin
+        # Browser (brave-browser package; brave-origin wrapper shipped via files)
+        - brave-browser
         # Themes / icons / fonts
         - papirus-icon-theme
         - abattis-cantarell-fonts
@@ -58,16 +63,5 @@ modules:
         - xorg-x11-drv-libinput
     remove:
       packages: []
-
-  - type: script
-    snippets:
-      # Build i3lock-color from source (not packaged in Fedora). Pinned commit
-      # abdfd4d = master as of 2026-08-14; prefix /usr (base-main's /usr/local
-      # is a symlink, not a directory). Installs as /usr/bin/i3lock.
-      - dnf -y install git gcc make pkgconfig autoconf automake libtool cairo-devel fontconfig-devel freetype-devel libev-devel libjpeg-turbo-devel libX11-devel libXext-devel libxcb-devel libxkbcommon-devel libxkbcommon-x11-devel pam-devel xcb-util-devel xcb-util-image-devel xcb-util-keysyms-devel xcb-util-wm-devel xcb-util-xrm-devel
-      - git clone https://github.com/PandorasFox/i3lock-color /tmp/i3lock-color && cd /tmp/i3lock-color && git checkout abdfd4dd8f538c8a3f40ddd6af20a7c38438ae4c
-      - cd /tmp/i3lock-color && autoreconf -i && ./configure --prefix=/usr && cd "$(ls -d /tmp/i3lock-color/*-pc-linux-gnu | head -1)" && make && make install
-      # Remove build deps + source to keep the image lean
-      - dnf -y remove git gcc make pkgconfig autoconf automake libtool cairo-devel fontconfig-devel freetype-devel libev-devel libjpeg-turbo-devel libX11-devel libXext-devel libxcb-devel libxkbcommon-devel libxkbcommon-x11-devel pam-devel xcb-util-devel xcb-util-image-devel xcb-util-keysyms-devel xcb-util-wm-devel xcb-util-xrm-devel && rm -rf /tmp/i3lock-color
 
   - type: signing
