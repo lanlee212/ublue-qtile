@@ -91,6 +91,11 @@ modules:
       - dnf -y install kernel-cachyos
       # restore the real hooks for first-boot dracut (rpm-ostree runs it)
       - cd /usr/lib/kernel/install.d && for h in 05-rpmostree.install 50-dracut.install; do [ -f "$h.bak" ] && mv -f "$h.bak" "$h"; done
+      # Bake a full (non-hostonly) initramfs so the root device driver (nvme/
+      # ahci) is ALWAYS present — deployment-time dracut can fail silently on
+      # the client, causing "VFS: Unable to mount root fs" panics. machine-id
+      # is absent in containers; all-zeros is regenerated at first boot.
+      - test -s /etc/machine-id || echo -n "00000000000000000000000000000000" > /etc/machine-id && dracut --no-hostonly --kver "$(ls /usr/lib/modules | head -1)" -f "/usr/lib/modules/$(ls /usr/lib/modules | head -1)/initramfs.img"
       # Homebrew: prebuilt install from the ublue-os/brew image, shipped as a
       # tar; brew-setup.service extracts + chowns to uid 1000 at first boot.
       - curl -sL -o /tmp/crane.tar.gz https://github.com/google/go-containerregistry/releases/download/v0.20.3/go-containerregistry_Linux_x86_64.tar.gz && tar -xzf /tmp/crane.tar.gz -C /usr/bin crane && chmod +x /usr/bin/crane
