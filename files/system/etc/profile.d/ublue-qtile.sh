@@ -11,3 +11,10 @@ fi
 
 # Qt6 apps: use the qt6ct platform theme (Fusion + OneDark color scheme)
 export QT_QPA_PLATFORMTHEME=qt6ct
+
+# Topgrade config: topgrade only reads ~/.config/topgrade/topgrade.toml
+# (no /etc support), so ship it per-user; no-clobber keeps user edits.
+if [ -d /usr/share/ublue-qtile/topgrade ]; then
+    mkdir -p "${HOME}/.config/topgrade"
+    cp -rn /usr/share/ublue-qtile/topgrade/topgrade.toml "${HOME}/.config/topgrade/topgrade.toml"
+fi
