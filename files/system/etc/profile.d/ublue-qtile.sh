@@ -18,3 +18,11 @@ if [ -d /usr/share/ublue-qtile/topgrade ]; then
     mkdir -p "${HOME}/.config/topgrade"
     cp -rn /usr/share/ublue-qtile/topgrade/topgrade.toml "${HOME}/.config/topgrade/topgrade.toml"
 fi
+
+# OneDark GTK theme (adw-colors): per-user CSS overrides on top of the
+# adw-gtk3-dark base theme; no-clobber keeps user edits.
+if [ -d /usr/share/ublue-qtile/gtk ]; then
+    mkdir -p "${HOME}/.config/gtk-3.0" "${HOME}/.config/gtk-4.0"
+    cp -rn /usr/share/ublue-qtile/gtk/gtk3-dark.css "${HOME}/.config/gtk-3.0/gtk.css"
+    cp -rn /usr/share/ublue-qtile/gtk/gtk4-dark.css "${HOME}/.config/gtk-4.0/gtk.css"
+fi
