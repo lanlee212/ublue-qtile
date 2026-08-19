@@ -6,7 +6,13 @@ if [ -d /usr/share/ublue-qtile/config ] && [ ! -f "${HOME}/.config/qtile/config.
     cp -rn /usr/share/ublue-qtile/config/. "${HOME}/.config/qtile/"
     cp -rn /usr/share/ublue-qtile/dunst/. "${HOME}/.config/dunst/"
     cp -rn /usr/share/ublue-qtile/picom/picom.conf "${HOME}/.config/picom.conf"
+    cp -rn /usr/share/ublue-qtile/wallpaper/od_arch.png "${HOME}/.config/qtile/background.png"
     chmod +x "${HOME}/.config/qtile/autostart.sh"
+fi
+
+# betterlockscreen cache: generate once (power menu Lock uses it)
+if command -v betterlockscreen >/dev/null 2>&1 && [ ! -d "${HOME}/.cache/betterlockscreen" ]; then
+    betterlockscreen -u /usr/share/ublue-qtile/wallpaper/od_arch.png >/dev/null 2>&1 || true
 fi
 
 # Qt6 apps: use the qt6ct platform theme (Fusion + OneDark color scheme)
