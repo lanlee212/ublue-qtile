@@ -36,7 +36,7 @@
   --accent-red: #e06c75;
   --accent-pink: #d3869b;
   --accent-purple: #c678dd;
-  --accent-slate: #5c6370;
+  --accent-slate: #545862;
   --accent-bg-color: @accent_bg_color;
   --accent-fg-color: @accent_fg_color;
   --window-bg-color: @window_bg_color;
