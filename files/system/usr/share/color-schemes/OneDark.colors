@@ -23,9 +23,9 @@ BackgroundSelected=62,68,81
 DecorationFocus=97,175,239
 DecorationHover=97,175,239
 ForegroundActive=97,175,239
-ForegroundInactive=84,88,98
+ForegroundInactive=92,99,112
 ForegroundLink=97,175,239
-ForegroundNormal=200,204,212
+ForegroundNormal=171,178,191
 ForegroundVisited=198,120,221
 
 [Colors:Complementary]
@@ -35,9 +35,9 @@ BackgroundSelected=62,68,81
 DecorationFocus=97,175,239
 DecorationHover=97,175,239
 ForegroundActive=97,175,239
-ForegroundInactive=84,88,98
+ForegroundInactive=92,99,112
 ForegroundLink=97,175,239
-ForegroundNormal=200,204,212
+ForegroundNormal=171,178,191
 ForegroundVisited=198,120,221
 
 [Colors:Header]
@@ -47,9 +47,9 @@ BackgroundSelected=62,68,81
 DecorationFocus=97,175,239
 DecorationHover=97,175,239
 ForegroundActive=97,175,239
-ForegroundInactive=84,88,98
+ForegroundInactive=92,99,112
 ForegroundLink=97,175,239
-ForegroundNormal=200,204,212
+ForegroundNormal=171,178,191
 ForegroundVisited=198,120,221
 
 [Colors:Selection]
@@ -59,9 +59,9 @@ BackgroundSelected=97,175,239
 DecorationFocus=97,175,239
 DecorationHover=97,175,239
 ForegroundActive=97,175,239
-ForegroundInactive=84,88,98
+ForegroundInactive=92,99,112
 ForegroundLink=97,175,239
-ForegroundNormal=200,204,212
+ForegroundNormal=171,178,191
 ForegroundVisited=198,120,221
 
 [Colors:Tooltip]
@@ -71,9 +71,9 @@ BackgroundSelected=62,68,81
 DecorationFocus=97,175,239
 DecorationHover=97,175,239
 ForegroundActive=97,175,239
-ForegroundInactive=84,88,98
+ForegroundInactive=92,99,112
 ForegroundLink=97,175,239
-ForegroundNormal=200,204,212
+ForegroundNormal=171,178,191
 ForegroundVisited=198,120,221
 
 [Colors:View]
@@ -83,9 +83,9 @@ BackgroundSelected=62,68,81
 DecorationFocus=97,175,239
 DecorationHover=97,175,239
 ForegroundActive=97,175,239
-ForegroundInactive=84,88,98
+ForegroundInactive=92,99,112
 ForegroundLink=97,175,239
-ForegroundNormal=200,204,212
+ForegroundNormal=171,178,191
 ForegroundVisited=198,120,221
 
 [Colors:Window]
@@ -95,9 +95,9 @@ BackgroundSelected=62,68,81
 DecorationFocus=97,175,239
 DecorationHover=97,175,239
 ForegroundActive=97,175,239
-ForegroundInactive=84,88,98
+ForegroundInactive=92,99,112
 ForegroundLink=97,175,239
-ForegroundNormal=200,204,212
+ForegroundNormal=171,178,191
 ForegroundVisited=198,120,221
 
 [General]
