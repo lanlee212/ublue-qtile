@@ -32,3 +32,9 @@ if [ -d /usr/share/ublue-qtile/gtk ]; then
     cp -rn /usr/share/ublue-qtile/gtk/gtk3-dark.css "${HOME}/.config/gtk-3.0/gtk.css"
     cp -rn /usr/share/ublue-qtile/gtk/gtk4-dark.css "${HOME}/.config/gtk-4.0/gtk.css"
 fi
+
+# Ghostty config: ship Lee's terminal config; no-clobber keeps user edits.
+if [ -d /usr/share/ublue-qtile/ghostty ]; then
+    mkdir -p "${HOME}/.config/ghostty"
+    cp -rn /usr/share/ublue-qtile/ghostty/config "${HOME}/.config/ghostty/config"
+fi

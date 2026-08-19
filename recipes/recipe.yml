@@ -72,6 +72,8 @@ modules:
         # Flatpak (ProtonPlus etc.) + git (homebrew runtime dep)
         - flatpak
         - git
+        # Fira Code: the shipped ghostty config uses it as the terminal font
+        - fira-code-fonts
     remove:
       packages: []
 
