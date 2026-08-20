@@ -82,6 +82,10 @@ modules:
         - gamescope
         - mangohud
         - steam-devices
+        # Flatpak theming: GTK portal backend (dark scheme for libadwaita
+        # flatpaks) + dconf for the gsettings write
+        - xdg-desktop-portal-gtk
+        - dconf
     remove:
       packages: []
 

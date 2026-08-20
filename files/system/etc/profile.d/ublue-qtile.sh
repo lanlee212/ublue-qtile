@@ -38,3 +38,15 @@ if [ -d /usr/share/ublue-qtile/ghostty ]; then
     mkdir -p "${HOME}/.config/ghostty"
     cp -rn /usr/share/ublue-qtile/ghostty/config "${HOME}/.config/ghostty/config"
 fi
+
+# Flatpak dark scheme: the GTK portal reads this to report prefer-dark to
+# sandboxed apps (libadwaita flatpaks etc.). Idempotent, cheap.
+if command -v gsettings >/dev/null 2>&1; then
+    gsettings set org.gnome.desktop.interface color-scheme prefer-dark 2>/dev/null || true
+fi
+
+# Flatpak GTK4 theming: let sandboxes READ the user's gtk-3.0/gtk-4.0 css so
+# the OneDark overrides apply inside flatpaks too. Idempotent.
+if command -v flatpak >/dev/null 2>&1; then
+    flatpak override --user --filesystem=xdg-config/gtk-4.0:ro --filesystem=xdg-config/gtk-3.0:ro 2>/dev/null || true
+fi
