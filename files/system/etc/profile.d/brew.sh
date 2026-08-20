@@ -1,9 +1,14 @@
-#!/usr/bin/env bash
-
-# Prioritize system binaries to prevent brew overriding things like dbus
-# See: https://github.com/ublue-os/brew/blob/54b30cc07d3211fca65ca5cc724e9812c8c79b77/system_files/usr/lib/systemd/system/brew-upgrade.service#L17-L22
-if [[ $- == *i* && -z "${HOMEBREW_PREFIX:-}" && -d /home/linuxbrew/.linuxbrew && ! "$PATH" =~ "/home/linuxbrew.linuxbrew" ]]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv | grep -Ev '\bPATH=')"
-  HOMEBREW_PREFIX="${HOMEBREW_PREFIX:-/home/linuxbrew/.linuxbrew}"
-  export PATH="${PATH}:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin"
+# Homebrew PATH for the ublue-qtile image (extracted by brew-setup.service).
+# Deliberately not gated on interactive shells: the qtile session and
+# launcher-spawned terminals need brew on PATH too.
+if [ -d /home/linuxbrew/.linuxbrew ]; then
+    case ":$PATH:" in
+        *:/home/linuxbrew/.linuxbrew/bin:*) ;;
+        *) export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH" ;;
+    esac
+    export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+    export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar"
+    export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew"
+    export MANPATH="/home/linuxbrew/.linuxbrew/share/man${MANPATH:+:$MANPATH}"
+    export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:${INFOPATH:-}"
 fi
