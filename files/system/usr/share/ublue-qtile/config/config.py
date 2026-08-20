@@ -34,13 +34,22 @@ def show_app_launcher(qtile):
     ).show(centered=True, qtile=qtile)
 
 def show_notif_history(qtile):
-    """Notification history popup, themed from config.py."""
-    HistoryPopup(
+    """Notification history popup, themed from config.py — just above the bar,
+    right-aligned with the bar's right edge."""
+    popup = HistoryPopup(
         qtile,
         colors=colors,
         font=widget_defaults["font"],
         fontsize=widget_defaults["fontsize"],
-    ).show(centered=True, qtile=qtile)
+    )
+    bar = qtile.current_screen.bottom
+    m = bar.margin
+    m = m[1] if isinstance(m, (list, tuple)) else m  # right margin
+    popup.show(
+        x=qtile.current_screen.width - popup.width - m,
+        y=qtile.current_screen.height - bar.size - m - popup.height - 4,
+        qtile=qtile,
+    )
 
 
 def show_power_menu(qtile):
