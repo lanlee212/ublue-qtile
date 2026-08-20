@@ -1,14 +1,16 @@
 #!/bin/sh
-# Lock the active graphical session before suspend/sleep — same behavior as
-# the desktop's betterlockscreen@.service hook.
+# Resume recovery for the suspend lock (locking itself is handled by the
+# betterlockscreen@<user>.service unit).
 #
 # Runs as root (systemd executes everything in system-sleep/ on sleep events).
-# Finds the first x11/wayland session, then launches betterlockscreen as that
-# user with the session's XAUTHORITY (SDDM keeps it in /run/user/<uid>/).
 #
-# On resume the xautolock idle-lock countdown is restarted: it kept running
-# during suspend, so without this it fires (re-locks) right after the user
-# unlocks. -detect-sleep alone is unreliable on systemd suspends.
+# On resume:
+#  - the xautolock idle-lock countdown is restarted: it kept running during
+#    suspend, so without this it fires (re-locks) right after the user
+#    unlocks. -detect-sleep alone is unreliable on systemd suspends.
+#  - i3lock often loses its X connection during suspend (amdgpu etc.) and
+#    exits silently: wake would show a stale lock frame for a second, then
+#    the desktop. Re-lock after wake if nothing is holding the lock.
 
 _session_user() {
     for sid in $(loginctl list-sessions --no-legend 2>/dev/null | awk '{print $1}'); do
@@ -33,25 +35,13 @@ _session_xauth() {
 }
 
 case "$1" in
-    pre)
-        user=$(_session_user) || exit 0
-        xauth=$(_session_xauth "$user") || xauth=""
-        DISPLAY=:0 XAUTHORITY="$xauth" runuser -u "$user" -- \
-            /usr/bin/betterlockscreen -l >/dev/null 2>&1 &
-        sleep 1
-        ;;
     post)
-        # reset the idle-lock countdown so it can't fire right after unlock
         user=$(_session_user) || exit 0
         xauth=$(_session_xauth "$user") || xauth=""
         pkill -x xautolock 2>/dev/null
         sleep 1
         DISPLAY=:0 XAUTHORITY="$xauth" runuser -u "$user" -- \
             xautolock -detect-sleep -time 10 -locker "betterlockscreen -l" >/dev/null 2>&1 &
-        # i3lock often loses its X connection during suspend (amdgpu etc.)
-        # and exits silently: the screen then wakes to a stale lock frame
-        # for a second before showing the desktop. Re-lock after wake if
-        # nothing is holding the lock anymore.
         if ! pgrep -x i3lock >/dev/null 2>&1; then
             DISPLAY=:0 XAUTHORITY="$xauth" runuser -u "$user" -- \
                 /usr/bin/betterlockscreen -l >/dev/null 2>&1 &
