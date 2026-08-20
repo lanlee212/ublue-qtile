@@ -2,7 +2,7 @@
 # theme + picom config into the user's home (no-clobber, idempotent). Sourced
 # by sddm's Xsession via /etc/profile before qtile starts.
 if [ -d /usr/share/ublue-qtile/config ] && [ ! -f "${HOME}/.config/qtile/config.py" ]; then
-    mkdir -p "${HOME}/.config/qtile" "${HOME}/.config/dunst"
+    mkdir -p "${HOME}/.config/qtile" "${HOME}/.config/dunst" "${HOME}/Pictures"
     cp -rn /usr/share/ublue-qtile/config/. "${HOME}/.config/qtile/"
     cp -rn /usr/share/ublue-qtile/dunst/. "${HOME}/.config/dunst/"
     cp -rn /usr/share/ublue-qtile/picom/picom.conf "${HOME}/.config/picom.conf"

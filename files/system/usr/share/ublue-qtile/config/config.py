@@ -1,3 +1,4 @@
+import glob
 import os
 import subprocess
 from libqtile import bar, layout, qtile
@@ -10,13 +11,24 @@ from qtile_extras.popup.toolkit import (
     PopupRelativeLayout,
     PopupImage,
     PopupText )
+from battery import BatteryGauge
 from launcher import AppLauncher
 from nothistory import HistoryPopup, bell_text
 from power_menu import PowerMenu
+from volumegauge import VolumeGauge
 import colors
 
 # set color theme form colors.py 
 colors = colors.OneDark
+
+# battery gauge only exists on machines that have one (laptops)
+_has_battery = bool(glob.glob("/sys/class/power_supply/BAT*"))
+_battery_gauge = BatteryGauge(
+    bar_text_foreground=colors[2],
+    colour_low=colors[3],
+    colour_mid=colors[5],
+    colour_high=colors[4],
+) if _has_battery else None
 
 @hook.subscribe.startup_once
 def autostart():
@@ -76,6 +88,8 @@ keys = [
     Key([], "XF86AudioMute", lazy.spawn ("pactl set-sink-mute @DEFAULT_SINK@ toggle"),),
     Key([], "XF86AudioRaiseVolume", lazy.spawn ("pactl set-sink-volume @DEFAULT_SINK@ +5%"),),
     Key([], "XF86AudioLowerVolume", lazy.spawn ("pactl set-sink-volume @DEFAULT_SINK@ -5%"),),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +5%"),),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 5%-"),),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
     Key([mod, "shift"], "n",  lazy.spawn ("brave-origin --incognito"),),
     # Move windows between left/right columns or move up/down in current stack.
@@ -217,9 +231,8 @@ screens = [
                 #widget.WindowTabs(),
                 widget.TaskList (border = colors[6]),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                # ALSAWidget omitted on the image: pyalsaaudio isn't in Fedora;
-                # volume keys still work via pactl (pipewire-pulse)
-                #widget.ALSAWidget(update_interval=0,bar_colour_normal=colors[4],bar_colour_loud=colors[3],bar_colour_high=colors[5],bar_text_foreground=colors[2]),
+                VolumeGauge(update_interval=2, bar_text_foreground=colors[2], colour_normal=colors[4], colour_high=colors[5], colour_loud=colors[3], mouse_callbacks={"Button1": lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")}),
+                *([_battery_gauge] if _has_battery else []),
                 #widget.StatusNotifier(icon_size = 16, icon_theme ="Papirus-Dark"),
                 widget.Systray(icon_size = 16,icon_theme ="Papirus-Dark"),
                 widget.GenPollText(func=bell_text, update_interval=15, mouse_callbacks={"Button1": lazy.function(show_notif_history)}, foreground=colors[1]),

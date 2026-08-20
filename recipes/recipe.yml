@@ -74,6 +74,14 @@ modules:
         - git
         # Fira Code: the shipped ghostty config uses it as the terminal font
         - fira-code-fonts
+        # TLP: laptop power management (auto-tuned; tlp.service enabled below)
+        - tlp
+        # Brightness keys (brightnessctl), volume mixer GUI, gaming extras
+        - brightnessctl
+        - pavucontrol
+        - gamescope
+        - mangohud
+        - steam-devices
     remove:
       packages: []
 

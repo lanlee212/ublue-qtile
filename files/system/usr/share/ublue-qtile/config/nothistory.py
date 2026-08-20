@@ -27,7 +27,7 @@ from libqtile.backend.x11.xkeysyms import keysyms
 from qtile_extras.popup.toolkit import PopupRelativeLayout, PopupText
 
 _ROWS = 8
-_MAX_LABEL = 62
+_MAX_LABEL = 48
 _BELL = "\U0001F514"  # bell emoji
 
 
@@ -113,7 +113,7 @@ class HistoryPopup(PopupRelativeLayout):
 
         super().__init__(
             qtile,
-            width=760,
+            width=380,
             height=50 + rows * 44,
             controls=[self.title] + self.rows,
             background=colors[0],

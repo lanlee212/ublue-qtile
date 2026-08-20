@@ -1,22 +1,32 @@
 # ublue-qtile
 
-Minimal Fedora Atomic image with **Qtile** WM + **SDDM** display manager, built with [BlueBuild](https://blue-build.org).
+Minimal Fedora Atomic image with **Qtile** (X11) + **SDDM**, built with [BlueBuild](https://blue-build.org).
 
-Based on `ublue-os/base-main` — no GNOME, no KDE, just a clean base.
+Based on `ublue-os/base-main` — no GNOME, no KDE, just a clean base. The whole
+stack (GTK, Qt, terminal, notifications, popups) is themed **OneDark**.
 
 ## What's included
 
-- **Qtile** (Wayland + X11 sessions available in SDDM)
-- **SDDM** display manager (default session: Qtile Wayland)
-- **Alacritty** / **Kitty** terminals
-- **Rofi** launcher
-- **Dunst** notifications
-- **Thunar** + **Nemo** file managers
-- **Geany** text editor
-- **Papirus** icons
-- **Grim/Slurp** screenshot tools
-- **Picom** X11 compositor
-- **Pavucontrol**, **Blueman**, **NetworkManager applet**
+- **Qtile (X11)** — default SDDM session, with OneDark-themed popups:
+  - App launcher (`Mod+d`, MRU + fuzzy matching)
+  - Notification history (`Mod+\``, click the bell) — positioned above the bar
+  - Power menu (`Mod+Shift+Q`) with i3lock/betterlockscreen
+- **SDDM** with the Eucalyptus Drop theme + custom wallpaper
+- **OneDark theming everywhere**: GTK via [adw-colors](https://github.com/lassekongo83/adw-colors)
+  on adw-gtk3-dark, Qt via qt5ct/qt6ct + OneDark color scheme, dunst, picom, qtile bar
+- **Ghostty** terminal (Fira Code, One Dark Two theme) — config shipped per-user
+- **Nemo** + **Thunar** file managers, **Geany** editor
+- **Steam**, **ProtonPlus** (Flatpak), **Aisleriot**, **Brave Origin**
+- **Dunst** notifications, **Picom** compositor, **betterlockscreen** (lockscreen
+  with the wallpaper; auto-locks on suspend)
+- **TLP** power management + **battery gauge** bar widget (only appears on
+  machines with a battery)
+- **Homebrew** (extracted + user-owned on first login), **Topgrade** — one command
+  updates everything (bootc + brew + Flatpak + firmware)
+- **Papirus** icons, stock Fedora kernel
+- First login auto-copies the default configs (qtile, dunst, picom, ghostty,
+  GTK theme, topgrade) into the user's home — **no-clobber**, your edits survive
+  every update
 
 ## Installation
 
@@ -32,22 +42,33 @@ rpm-ostree rebase ostree-image-signed:docker://ghcr.io/lanlee212/ublue-qtile:lat
 systemctl reboot
 ```
 
-### Fresh install
+At the SDDM login screen, select **Qtile (X11)** as your session.
 
-1. Install [Fedora Silverblue](https://fedoraproject.org/silverblue/) 42 normally
-2. Or direct ISO from your GitHub Actions artifacts
-3. Rebase as above
+## Updating
 
-## Post-install
+The image rebuilds automatically every day (GitHub Actions schedule) with the
+newest Fedora packages; a weekly timer stages updates in the background. To apply:
 
-At the SDDM login screen, select **Qtile** or **Qtile (X11)** as your session.
-
-To create your qtile config:
 ```bash
-mkdir -p ~/.config/qtile
-cp /usr/share/doc/qtile/default_config.py ~/.config/qtile/config.py
+topgrade          # bootc upgrade + brew + flatpak + firmware
+systemctl reboot
 ```
+
+Rollback is always one command: `rpm-ostree rollback` (or pick the previous
+deployment at the boot menu).
 
 ## Customizing
 
-Edit `recipes/recipe.yml` and push — GitHub Actions rebuilds automatically.
+- Edit `recipes/recipe.yml` (packages, COPRs, scripts) and push — GitHub Actions
+  rebuilds automatically.
+- Shipped files live in `files/system/` (configs, themes, units, first-run logic
+  in `/etc/profile.d/ublue-qtile.sh`).
+
+## Acknowledgments
+
+This project is developed with assistance from **Hermes**, an AI agent by
+[Nous Research](https://nousresearch.com). Hermes helps with configuration,
+debugging, and image maintenance; every change is verified locally and
+reviewed and approved by the maintainer (Lee) before being committed and
+pushed. Generated or AI-assisted content follows the repository's review
+process like any other contribution.
