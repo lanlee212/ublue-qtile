@@ -15,6 +15,8 @@ wait -n &
 if command -v megasync >/dev/null 2>&1; then
     DO_NOT_UNSET_QT_QPA_PLATFORMTHEME=1 megasync &
 fi
-xautolock -time 10 -locker "betterlockscreen -l" &
+# Idle lock: -detect-sleep resets the countdown after resume so a long
+# suspend doesn't re-lock the screen right after unlocking
+xautolock -detect-sleep -time 10 -locker "betterlockscreen -l" &
 pactl load-module module-switch-on-connect
 remmina -i &
