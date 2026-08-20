@@ -30,6 +30,22 @@ _battery_gauge = BatteryGauge(
     colour_high=colors[4],
 ) if _has_battery else None
 
+def vol_set(qtile, op):
+    """Change volume + refresh the gauge instantly (no poll lag)."""
+    qtile.spawn(f"pactl set-sink-volume @DEFAULT_SINK@ {op}")
+    gauge = qtile.widgets_map.get("volumegauge")
+    if gauge:
+        gauge.refresh()
+
+
+def vol_toggle_mute(qtile):
+    """Toggle mute + refresh the gauge instantly."""
+    qtile.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")
+    gauge = qtile.widgets_map.get("volumegauge")
+    if gauge:
+        gauge.refresh()
+
+
 @hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser("~/.config/qtile/autostart.sh")
@@ -85,9 +101,9 @@ keys = [
     Key([mod], "right", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "down", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "up", lazy.layout.up(), desc="Move focus up"),
-    Key([], "XF86AudioMute", lazy.spawn ("pactl set-sink-mute @DEFAULT_SINK@ toggle"),),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn ("pactl set-sink-volume @DEFAULT_SINK@ +5%"),),
-    Key([], "XF86AudioLowerVolume", lazy.spawn ("pactl set-sink-volume @DEFAULT_SINK@ -5%"),),
+    Key([], "XF86AudioMute", lazy.function(vol_toggle_mute),),
+    Key([], "XF86AudioRaiseVolume", lazy.function(vol_set, "+5%"),),
+    Key([], "XF86AudioLowerVolume", lazy.function(vol_set, "-5%"),),
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +5%"),),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 5%-"),),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
@@ -231,7 +247,7 @@ screens = [
                 #widget.WindowTabs(),
                 widget.TaskList (border = colors[6]),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                VolumeGauge(update_interval=2, bar_text_foreground=colors[2], colour_normal=colors[4], colour_high=colors[5], colour_loud=colors[3], mouse_callbacks={"Button1": lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")}),
+                VolumeGauge(update_interval=2, bar_text_foreground=colors[2], colour_normal=colors[4], colour_high=colors[5], colour_loud=colors[3], mouse_callbacks={"Button1": lazy.function(vol_toggle_mute)}),
                 *([_battery_gauge] if _has_battery else []),
                 #widget.StatusNotifier(icon_size = 16, icon_theme ="Papirus-Dark"),
                 widget.Systray(icon_size = 16,icon_theme ="Papirus-Dark"),

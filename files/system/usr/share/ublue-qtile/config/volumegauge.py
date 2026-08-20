@@ -73,6 +73,12 @@ class VolumeGauge(base._Widget, ProgressBarMixin):
     def calculate_length(self):
         return self.bar_width + 2 * getattr(self, "padding", 3)
 
+    def refresh(self):
+        """Redraw now (also called from keybinds for instant feedback)."""
+        self.draw()
+        self.bar.draw()
+        self.timeout_add(self.update_interval, self._refresh)
+
     def _refresh(self):
         self.draw()
         self.bar.draw()
