@@ -86,6 +86,22 @@ modules:
         # flatpaks) + dconf for the gsettings write
         - xdg-desktop-portal-gtk
         - dconf
+        # Build toolchain: npm native modules (node-gyp: node-pty etc.)
+        # need gcc + g++ (gcc-c++), make, and the C library headers
+        # (glibc-devel) — minimal base has none of these
+        - gcc
+        - gcc-c++
+        - make
+        - glibc-devel
+        # Full video codecs (RPM Fusion): H.264/H.265/AV1 via ffmpeg-libs,
+        # gstreamer plugins, mpv player, and AMD VA-API hardware decode
+        - ffmpeg-libs
+        - gstreamer1-plugins-good-extra
+        - gstreamer1-plugins-bad-free-extras
+        - gstreamer1-plugins-ugly
+        - gstreamer1-vaapi
+        - mpv
+        - mesa-va-drivers-freeworld
     remove:
       packages: []
 
