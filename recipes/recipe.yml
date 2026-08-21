@@ -93,11 +93,10 @@ modules:
         - gcc-c++
         - make
         - glibc-devel
-        # Full video codecs (RPM Fusion): H.264/H.265/AV1 via ffmpeg-libs,
-        # gstreamer plugins, mpv player, and AMD VA-API hardware decode
-        - ffmpeg-libs
-        - gstreamer1-plugins-good-extra
-        - gstreamer1-plugins-bad-free-extras
+        # Full video codecs: base-main already ships negativo17's
+        # fedora-multimedia (full libavcodec + gstreamer-bad, priority 90);
+        # add the missing pieces — mpv, gstreamer VA-API + ugly, and the
+        # AMD full VA-API decode driver (rpmfusion nonfree)
         - gstreamer1-plugins-ugly
         - gstreamer1-vaapi
         - mpv
