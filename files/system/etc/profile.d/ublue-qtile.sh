@@ -7,6 +7,11 @@ if [ -d /usr/share/ublue-qtile/config ] && [ ! -f "${HOME}/.config/qtile/config.
     cp -rn /usr/share/ublue-qtile/dunst/. "${HOME}/.config/dunst/"
     cp -rn /usr/share/ublue-qtile/picom/picom.conf "${HOME}/.config/picom.conf"
     cp -rn /usr/share/ublue-qtile/wallpaper/od_arch.png "${HOME}/.config/qtile/background.png"
+fi
+
+# autostart.sh must be executable for qtile (subprocess.run exec); fix stale
+# copies too — qtile dies with "Permission denied" otherwise
+if [ -f "${HOME}/.config/qtile/autostart.sh" ]; then
     chmod +x "${HOME}/.config/qtile/autostart.sh"
 fi
 
