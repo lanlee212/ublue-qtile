@@ -2,7 +2,13 @@
 # First-boot Nix install (Determinate Nix installer, systemd init).
 # Marker-guarded; runs once. The first user (anaconda-created, uid 1000)
 # is added to the nix-users group so they can use the daemon.
+#
+# bootc layout: / is read-only (only /etc + /var writable), so /nix is
+# a symlink to /var/nix shipped in the image — the store must live on
+# the writable /var.
 set -e
+
+mkdir -p /var/nix
 
 # Wait briefly for the first user to exist (fresh installs create it in anaconda)
 user=""
