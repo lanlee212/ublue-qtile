@@ -23,6 +23,15 @@ fi
 # Qt6 apps: use the qt6ct platform theme (Fusion + OneDark color scheme)
 export QT_QPA_PLATFORMTHEME=qt6ct
 
+# Explicit theme pins: nix-installed apps (and anything outside the
+# session's settings plumbing) can't resolve the theme from
+# settings.ini/portal — GTK_THEME + GTK_ICON_THEME force it for every
+# GTK app. XDG_DATA_DIRS keeps /usr/share (themes, icons) visible even
+# when a nix shell rewrites it.
+export GTK_THEME=adw-gtk3-dark
+export GTK_ICON_THEME=Papirus-Dark
+export XDG_DATA_DIRS="/usr/share:/usr/local/share${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
+
 # Topgrade config: topgrade only reads ~/.config/topgrade/topgrade.toml
 # (no /etc support), so ship it per-user; no-clobber keeps user edits.
 if [ -d /usr/share/ublue-qtile/topgrade ]; then
