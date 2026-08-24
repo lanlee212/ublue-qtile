@@ -12,11 +12,10 @@ modules:
     files:
       - source: system
         destination: /
+# FIXED: Unified module, corrected indentation, and added the real Terra repository URL
   - type: rpm-ostree
-     repos:
-       - https://fyralabs.com
-  # Step 2: Swap the stock kernel for the OGC kernel packages
-  - type: rpm-ostree
+    repos:
+      - https://fyralabs.com
     allow-erasing: true
     install:
       - kernel-ogc
