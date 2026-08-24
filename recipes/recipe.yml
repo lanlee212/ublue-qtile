@@ -1,9 +1,9 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 name: ublue-qtile
-description: Fedora 44 image with Qtile WM + SDDM, shipping Lee's qtile config as the default
+description: Fedora 44 image with Qtile WM + SDDM
 
 base-image: ghcr.io/ublue-os/base-main
-image-version: 44
+image-version: latest
 KERNEL_FLAVOR: ogc
 
 
@@ -12,7 +12,25 @@ modules:
     files:
       - source: system
         destination: /
+ - type: rpm-ostree
+    repos:
+      - https://fyralabs.com
 
+  # Step 2: Swap the stock kernel for the OGC kernel packages
+  - type: rpm-ostree
+    allow-erasing: true
+    install:
+      - kernel-ogc
+      - kernel-ogc-modules
+      - kernel-ogc-modules-core
+      - kernel-ogc-modules-extra
+    remove:
+      - kernel
+      - kernel-core
+      - kernel-modules
+      - kernel-modules-core
+      - kernel-modules-extra
+      
   - type: dnf
     repos:
       files:
