@@ -2,7 +2,7 @@
 name: ublue-qtile
 description: Fedora 44 image with Qtile WM + SDDM
 
-base-image: ghcr.io/ublue-os/base-main
+base-image: ghcr.io/ublue-os/bazzite
 image-version: latest
 
 
@@ -12,24 +12,6 @@ modules:
     files:
       - source: system
         destination: /
-# FIXED: Unified module, corrected indentation, and added the real Terra repository URL
-  - type: rpm-ostree
-    repos:
-      - https://fyralabs.com
-    allow-erasing: true
-    install:
-      - kernel-ogc
-      - kernel-ogc-modules
-      - kernel-ogc-modules-core
-      - kernel-ogc-modules-extra
-    remove:
-      - kernel
-      - kernel-core
-      - kernel-modules
-      - kernel-modules-core
-      - kernel-modules-extra
-
-  - type: dnf
     repos:
       files:
         - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
