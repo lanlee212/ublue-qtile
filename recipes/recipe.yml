@@ -2,7 +2,7 @@
 name: ublue-qtile
 description: Fedora 44 image with Qtile WM + SDDM
 
-base-image: ghcr.io/ublue-os/bazzite
+base-image: ghcr.io/ublue-os/base-main
 image-version: latest
 
 

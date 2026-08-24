@@ -1,0 +1,9 @@
+# Extract the OGC kernel cache packages from the Ublue compilation stage
+FROM ghcr.io/ublue-os/akmods:main-fedora-44 AS kernel-source
+
+# Target your clean base-main image deployment layer
+FROM ghcr.io/ublue-os/base-main:latest
+COPY --from=kernel-source /tmp/rpms /tmp/kernel-rpms
+
+# Force block replace on the system's stock core packages
+RUN rpm-ostree override replace /tmp/kernel-rpms/kernel-*.rpm
