@@ -6,5 +6,4 @@
 #   nixpkgs#ripgrep
 #   nixpkgs#fd
 
-nixpkgs#ripgrep
-nixpkgs#fzf
+

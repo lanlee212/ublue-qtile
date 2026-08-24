@@ -94,6 +94,7 @@ modules:
         - gcc-c++
         - make
         - glibc-devel
+        - ripgrep
         # Nix: official Fedora 44 package (daemon + CLI). /nix is a real
         # dir bind-mounted from /var/nix (nix.mount); dirs pre-created by
         # ublue-nix tmpfiles so the daemon-socket condition passes
