@@ -12,14 +12,6 @@ modules:
     files:
       - source: system
         destination: /
- # STEP 1: The OGC Kernel Core Swap
-  # This module tells the BlueBuild compiler to execute raw Containerfile stages.
-  - type: containerfile
-    snippets:
-       - COPY --from=ghcr.io/ublue-os/akmods:ogc-44 /kernel-rpms/ /tmp/kernel-rpms/
-      # FIXED: Swapped explicit wildcard arrays for the clean target folder path
-      - RUN rpm-ostree override replace /tmp/kernel-rpms/*.rpm && ostree container commit
-      
   - type: dnf
     repos:
       files:
