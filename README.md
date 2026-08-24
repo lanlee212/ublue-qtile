@@ -21,8 +21,10 @@ stack (GTK, Qt, terminal, notifications, popups) is themed **OneDark**.
   with the wallpaper; auto-locks on suspend)
 - **TLP** power management + **battery gauge** bar widget (only appears on
   machines with a battery)
-- **Homebrew** (extracted + user-owned on first login), **Topgrade** — one command
-  updates everything (bootc + brew + Flatpak + firmware)
+- **Nix** (official Fedora package, `/nix` bind-mounted from `/var/nix`,
+  baked-in package list in `/usr/share/ublue-qtile/nix-packages.txt`),
+  **Topgrade** — one command
+  updates everything (bootc + Flatpak + firmware)
 - **Papirus** icons, stock Fedora kernel
 - First login auto-copies the default configs (qtile, dunst, picom, ghostty,
   GTK theme, topgrade) into the user's home — **no-clobber**, your edits survive
@@ -50,7 +52,7 @@ The image rebuilds automatically every day (GitHub Actions schedule) with the
 newest Fedora packages; a weekly timer stages updates in the background. To apply:
 
 ```bash
-topgrade          # bootc upgrade + brew + flatpak + firmware
+topgrade          # bootc upgrade + flatpak + firmware
 systemctl reboot
 ```
 

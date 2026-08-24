@@ -1,8 +1,8 @@
 # ublue-qtile topgrade config (system-wide; users can override in ~/.config/topgrade/topgrade.toml)
-# Steps auto-detected on this image: bootc upgrade, brew, flatpak.
+# Steps auto-detected on this image: bootc upgrade, flatpak.
 
 [misc]
-# update system + brew + flatpaks; skip per-user repo scanning
+# update system + flatpaks; skip per-user repo scanning
 disable = ["git_repos"]
 
 [linux]
@@ -10,9 +10,6 @@ disable = ["git_repos"]
 # Without this, topgrade falls back to `dnf upgrade`, which bootc systems
 # refuse ("this bootc system is configured to be read-only").
 bootc = true
-
-[brew]
-autoremove = true
 
 [flatpak]
 use_sudo = true

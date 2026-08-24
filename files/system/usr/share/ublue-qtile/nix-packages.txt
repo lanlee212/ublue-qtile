@@ -1,0 +1,10 @@
+# Nix packages baked into the image (nix profile install at build time).
+# One package per line, nixpkgs# syntax. Lines starting with # are ignored.
+# These land in the store's default profile — on PATH for every user.
+#
+# Examples:
+#   nixpkgs#ripgrep
+#   nixpkgs#fd
+
+nixpkgs#ripgrep
+nixpkgs#fzf

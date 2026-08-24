@@ -70,7 +70,7 @@ modules:
         # Qt theming (qt6ct platform theme + OneDark color scheme, profile.d env)
         - qt5ct
         - qt6ct
-        # Flatpak (ProtonPlus etc.) + git (homebrew runtime dep)
+        # Flatpak (ProtonPlus etc.) + git
         - flatpak
         - git
         # Fira Code: the shipped ghostty config uses it as the terminal font
@@ -111,15 +111,17 @@ modules:
 
   - type: script
     snippets:
-      # Homebrew: prebuilt install from the ublue-os/brew image, shipped as a
-      # tar; brew-setup.service extracts + chowns to uid 1000 at first boot.
-      - curl -sL -o /tmp/crane.tar.gz https://github.com/google/go-containerregistry/releases/download/v0.20.3/go-containerregistry_Linux_x86_64.tar.gz && tar -xzf /tmp/crane.tar.gz -C /usr/bin crane && chmod +x /usr/bin/crane
-      - crane export ghcr.io/ublue-os/brew@sha256:8f952ae54585db9f855a306ef365e13609ed7c7944b12b823ba7d5ce8e1a145b /tmp/brew-img.tar && tar -xf /tmp/brew-img.tar -C /tmp system_files/usr/share/homebrew.tar.zst && install -Dm644 /tmp/system_files/usr/share/homebrew.tar.zst /usr/share/homebrew.tar.zst
-      # Topgrade: all-in-one updater (rpm-ostree + brew + flatpak), release binary
+      # Topgrade: all-in-one updater (rpm-ostree + flatpak), release binary
       - curl -sL -o /tmp/topgrade.tar.gz https://github.com/topgrade-rs/topgrade/releases/download/v17.9.0/topgrade-v17.9.0-x86_64-unknown-linux-gnu.tar.gz && tar -xzf /tmp/topgrade.tar.gz -C /usr/bin topgrade && chmod +x /usr/bin/topgrade
       # Flathub + ProtonPlus (flatpak repo file already shipped via files module)
       - flatpak remote-add --if-not-exists --system flathub /etc/flatpak/remotes.d/flathub.flatpakrepo && flatpak install -y --noninteractive flathub com.vysp3r.ProtonPlus
+      # bake the nix packages listed in nix-packages.txt into the image store
+      - >
+        mkdir -p /nix /var/nix &&
+        pkgs="$(grep -vE '^\s*(#|$)' /usr/share/ublue-qtile/nix-packages.txt | tr '\n' ' ')" &&
+        if [ -n "$pkgs" ]; then nix profile install --profile /nix/var/nix/profiles/default $pkgs; fi &&
+        cp -a /nix/. /var/nix/
       # cleanup
-      - rm -rf /tmp/crane.tar.gz /tmp/brew-img.tar /tmp/topgrade.tar.gz /tmp/system_files /usr/bin/crane
+      - rm -rf /tmp/topgrade.tar.gz /tmp/system_files
 
   - type: signing
