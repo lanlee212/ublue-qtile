@@ -247,7 +247,6 @@ qcoro-qt6
 qqc2-breeze-style
 qt
 qt6-qt3d
-qt6-qt5compat
 qt6-qtcharts
 qt6-qtconnectivity
 qt6-qtdatavis3d

@@ -3,92 +3,77 @@ description: Fedora 44 image with Qtile WM + SDDM (bazzite base, KDE stripped)
 base-image: ghcr.io/ublue-os/bazzite
 image-version: latest
 modules:
-  # 1. files first: ships the qtile configs, remove-packages.txt, units
-  - type: files
+- type: files
+  files:
+  - source: system
+    destination: /
+- type: script
+  snippets:
+  - xargs -a /usr/share/ublue-qtile/remove-packages.txt dnf -y remove --setopt=tsflags=noscripts
+- type: dnf
+  repos:
     files:
-      - source: system
-        destination: /
-
-  # 2. STRIP the bazzite desktop stack BEFORE installing anything:
-  #    - noscripts: bazzite/KDE %postun scriptlets call systemctl/rm and
-  #      fail inside the build container (no systemd), which aborts the
-  #      rpm transaction
-  #    - runs before dnf so removals can't fight the qtile stack's deps
-  #      (e.g. qt6ct needs qt6-qtbase)
-  - type: script
-    snippets:
-      - xargs -a /usr/share/ublue-qtile/remove-packages.txt dnf -y remove --setopt=tsflags=noscripts
-
-  # 3. the qtile stack (bazzite leftovers are gone by now)
-  - type: dnf
-    repos:
-      files:
-        - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-      copr:
-        - scottames/ghostty
-        - tokariew/i3lock-color
+    - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+    copr:
+    - scottames/ghostty
+    - tokariew/i3lock-color
+  install:
+    packages:
+    - aisleriot
+    - blueman
+    - brave-origin
+    - brightnessctl
+    - dunst
+    - feh
+    - geany
+    - ghostty
+    - git
+    - gstreamer1-plugins-ugly
+    - gstreamer1-vaapi
+    - i3lock-color
+    - lxpolkit
+    - mpv
+    - nemo
+    - network-manager-applet
+    - papirus-icon-theme
+    - pavucontrol
+    - picom
+    - python3-xcffib
+    - qt5ct
+    - qt6-qt5compat
+    - qt6ct
+    - qtile
+    - qtile-extras
+    - remmina
+    - ripgrep
+    - scrot
+    - sddm
+    - tlp
+    - xautolock
+    - xorg-x11-drv-evdev
+    - xorg-x11-drv-libinput
+    - xorg-x11-server-Xorg
+    - xset
+  remove:
+    packages: []
+- type: systemd
+  system:
+    enabled:
+    - tlp.service
+- type: default-flatpaks
+  configurations:
+  - notify: true
+    scope: system
+    repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    repo-name: flathub
     install:
-      packages:
-        - qtile
-        - qtile-extras
-        - python3-xcffib
-        - sddm
-        - ghostty
-        - dunst
-        - xautolock
-        - feh
-        - xset
-        - i3lock-color
-        - picom
-        - lxpolkit
-        - network-manager-applet
-        - blueman
-        - remmina
-        - scrot
-        - brave-origin
-        - aisleriot
-        - nemo
-        - geany
-        - papirus-icon-theme
-        - xorg-x11-server-Xorg
-        - xorg-x11-drv-evdev
-        - xorg-x11-drv-libinput
-        - qt5ct
-        - qt6ct
-        - git
-        - tlp
-        - brightnessctl
-        - pavucontrol
-        - ripgrep
-        - gstreamer1-plugins-ugly
-        - gstreamer1-vaapi
-        - mpv
-    remove:
-      packages: []
-
-  # 4. enable services
-  - type: systemd
-    system:
-      enabled:
-        - tlp.service
-
-  # 5. flatpaks
-  - type: default-flatpaks
-    configurations:
-      - notify: true
-        scope: system
-        repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
-        repo-name: flathub
-        install:
-          - com.vysp3r.ProtonPlus
-      - scope: user
-        repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
-        repo-name: flathub
-
-  # 6. extra bits
-  - type: script
-    snippets:
-      - curl -sL -o /tmp/topgrade.tar.gz https://github.com/topgrade-rs/topgrade/releases/download/v17.9.0/topgrade-v17.9.0-x86_64-unknown-linux-gnu.tar.gz && tar -xzf /tmp/topgrade.tar.gz -C /usr/bin topgrade && chmod +x /usr/bin/topgrade
-      - rm -rf /tmp/topgrade.tar.gz /tmp/system_files
-
-  - type: signing
+    - com.vysp3r.ProtonPlus
+  - scope: user
+    repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    repo-name: flathub
+- type: script
+  snippets:
+  - curl -sL -o /tmp/topgrade.tar.gz https://github.com/topgrade-rs/topgrade/releases/download/v17.9.0/topgrade-v17.9.0-x86_64-unknown-linux-gnu.tar.gz && tar -xzf /tmp/topgrade.tar.gz -C /usr/bin topgrade
+    && chmod +x /usr/bin/topgrade
+  - rm -rf /tmp/topgrade.tar.gz /tmp/system_files
+- type: signing
