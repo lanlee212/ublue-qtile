@@ -76,10 +76,11 @@ modules:
         - fira-code-fonts
         # TLP: laptop power management (auto-tuned; tlp.service enabled below)
         - tlp
+        - tlp-rdw
         # Brightness keys (brightnessctl), volume mixer GUI, gaming extras
         - brightnessctl
         - pavucontrol
-        - gamescope
+        #- gamescope
         - mangohud
         - steam-devices
         # Flatpak theming: GTK portal backend (dark scheme for libadwaita
@@ -101,7 +102,7 @@ modules:
         - gstreamer1-plugins-ugly
         - gstreamer1-vaapi
         - mpv
-        - mesa-va-drivers-freeworld
+        # - mesa-va-drivers-freeworld
 
   - type: systemd
     system:
