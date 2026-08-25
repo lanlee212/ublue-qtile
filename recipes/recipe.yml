@@ -17,7 +17,7 @@ modules:
   #      (e.g. qt6ct needs qt6-qtbase)
   - type: script
     snippets:
-      - xargs -a /usr/share/ublue-qtile/remove-packages.txt dnf -y remove --setopt=tsflags=noscripts --setopt=skip_missing_names_on_remove=True
+      - xargs -a /usr/share/ublue-qtile/remove-packages.txt dnf -y remove --setopt=tsflags=noscripts
 
   # 3. the qtile stack (bazzite leftovers are gone by now)
   - type: dnf
