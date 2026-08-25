@@ -2,7 +2,7 @@
 name: ublue-qtile
 description: Fedora 44 image with Qtile WM + SDDM
 
-base-image: ghcr.io/ublue-os/base-main
+base-image: ghcr.io/ublue-os/bazzite
 image-version: latest
 
 
@@ -105,13 +105,26 @@ modules:
         - mesa-va-drivers-freeworld
     remove:
       packages: []
-
+      
+  - type: systemd
+    system:
+      enabled:
+      - tlp.service
+      
+  - type: default-flatpaks
+    configurations:
+  - notify: true # Send notification after install/uninstall is finished (true/false)
+    scope: system
+    install: # system flatpaks we want all users to have and not remove
+      - com.vysp3r.ProtonPlus
+  - scope: user # Also add Flathub user repo, but no user packages
+            
   - type: script
     snippets:
       # Topgrade: all-in-one updater (rpm-ostree + flatpak), release binary
       - curl -sL -o /tmp/topgrade.tar.gz https://github.com/topgrade-rs/topgrade/releases/download/v17.9.0/topgrade-v17.9.0-x86_64-unknown-linux-gnu.tar.gz && tar -xzf /tmp/topgrade.tar.gz -C /usr/bin topgrade && chmod +x /usr/bin/topgrade
       # Flathub + ProtonPlus (flatpak repo file already shipped via files module)
-      - flatpak remote-add --if-not-exists --system flathub /etc/flatpak/remotes.d/flathub.flatpakrepo && flatpak install -y --noninteractive flathub com.vysp3r.ProtonPlus
+      # - flatpak remote-add --if-not-exists --system flathub /etc/flatpak/remotes.d/flathub.flatpakrepo && flatpak install -y --noninteractive flathub com.vysp3r.ProtonPlus
       # cleanup
       - rm -rf /tmp/topgrade.tar.gz /tmp/system_files
 
