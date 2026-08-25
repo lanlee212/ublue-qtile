@@ -103,6 +103,9 @@ modules:
         - gstreamer1-vaapi
         - mpv
         # - mesa-va-drivers-freeworld
+    remove:
+      packages: 
+        - tuned-ppd-2.27.0-1
 
   - type: systemd
     system:
