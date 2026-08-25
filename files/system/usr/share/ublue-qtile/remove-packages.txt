@@ -8,10 +8,6 @@ audiocd-kio-doc
 aurorae
 baloo-widgets
 bluedevil
-bluez
-bluez-cups
-bluez-libs
-bluez-obexd
 bolt
 boost-regex
 bootc
@@ -21,7 +17,6 @@ breeze-cursor-theme
 breeze-gtk-common
 breeze-gtk-gtk3
 breeze-gtk-gtk4
-breeze-icon-theme
 cage
 capstone
 cardwire
@@ -34,7 +29,6 @@ cockpit-storaged
 cockpit-system
 colord-kde
 corosynclib
-cpp
 ctags
 dbus-daemon
 dbus-tools
@@ -48,7 +42,6 @@ dmidecode
 dolphin
 dolphin-libs
 dolphin-plugins
-f44-backgrounds-base
 f44-backgrounds-kde
 fcitx5-chewing
 fcitx5-chinese-addons
@@ -74,7 +67,6 @@ kcm-plasma-keyboard
 kcm-plasmalogin
 kde-cli-tools
 kde-connect-libs
-kde-filesystem
 kde-gtk-config
 kde-inotify-survey
 kde-settings
@@ -100,19 +92,14 @@ kf6-baloo
 kf6-baloo-file
 kf6-baloo-libs
 kf6-bluez-qt
-kf6-breeze-icons
-kf6-filesystem
 kf6-frameworkintegration
 kf6-frameworkintegration-libs
-kf6-karchive
 kf6-kauth
 kf6-kbookmarks
 kf6-kcalendarcore
 kf6-kcmutils
 kf6-kcodecs
-kf6-kcolorscheme
 kf6-kcompletion
-kf6-kconfig
 kf6-kconfigwidgets
 kf6-kcontacts
 kf6-kcoreaddons
@@ -125,13 +112,9 @@ kf6-kdnssd
 kf6-kdoctools
 kf6-kfilemetadata
 kf6-kglobalaccel
-kf6-kguiaddons
 kf6-kholidays
-kf6-ki18n
-kf6-kiconthemes
 kf6-kidletime
 kf6-kidletime-x11
-kf6-kimageformats
 kf6-kio-core
 kf6-kio-core-libs
 kf6-kio-doc
@@ -163,7 +146,6 @@ kf6-kunitconversion
 kf6-kuserfeedback
 kf6-kwallet
 kf6-kwallet-libs
-kf6-kwidgetsaddons
 kf6-kwindowsystem
 kf6-kxmlgui
 kf6-modemmanager-qt
@@ -225,7 +207,6 @@ pinentry-qt
 plasma-activities
 plasma-activities-stats
 plasma-breeze
-plasma-breeze-common
 plasma-breeze-qt6
 plasma-browser-integration
 plasma-desktop
@@ -265,17 +246,11 @@ qcom-wwan-firmware
 qcoro-qt6
 qqc2-breeze-style
 qt
-qt6-filesystem
 qt6-qt3d
 qt6-qt5compat
-qt6-qtbase
-qt6-qtbase-common
-qt6-qtbase-gui
-qt6-qtbase-mysql
 qt6-qtcharts
 qt6-qtconnectivity
 qt6-qtdatavis3d
-qt6-qtdeclarative
 qt6-qtgraphs
 qt6-qthttpserver
 qt6-qtimageformats
@@ -295,7 +270,6 @@ qt6-qtshadertools
 qt6-qtspeech
 qt6-qtspeech-flite
 qt6-qtspeech-speechd
-qt6-qtsvg
 qt6-qttools
 qt6-qttools-common
 qt6-qttools-libs-designer
@@ -308,7 +282,6 @@ qt6-qtwebengine
 qt6-qtwebsockets
 qt6-qtwebview
 qtkeychain-qt6
-redhat-menus
 signon
 signon-kwallet-extension
 signon-plugin-oauth2
@@ -326,8 +299,6 @@ vlc-plugins-video-out
 wlr-randr
 wmctrl
 xone-kmod-common
-xorg-x11-server-Xwayland
-xrdb
 xwaylandvideobridge
 xwiimote-ng
 xwininfo
