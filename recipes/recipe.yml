@@ -9,7 +9,7 @@ modules:
     destination: /
 - type: script
   snippets:
-  - xargs -a /usr/share/ublue-qtile/remove-packages.txt dnf -y remove --setopt=tsflags=noscripts
+  - grep -v '^#' /usr/share/ublue-qtile/remove-packages.txt | xargs dnf -y remove --setopt=tsflags=noscripts
 - type: dnf
   repos:
     files:

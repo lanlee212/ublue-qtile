@@ -1,3 +1,7 @@
+# bazzite KDE/SteamDeck packages stripped from the base. One per line.
+# NEVER remove: bootc, rpm-ostree, systemd, kernel*, glibc, dnf, rpm,
+# bash, shadow-utils, NetworkManager, pipewire*, mesa*, bluez*,
+# qt6-qtbase*, qt6-qt5compat, openssh* (update engine + qtile/SDDM deps).
 tuned-ppd
 PackageKit-Qt6
 appstream-qt
@@ -10,7 +14,6 @@ baloo-widgets
 bluedevil
 bolt
 boost-regex
-bootc
 bpftune-gaming
 brcmfmac-firmware
 breeze-cursor-theme
