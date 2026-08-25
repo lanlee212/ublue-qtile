@@ -95,10 +95,6 @@ modules:
         - make
         - glibc-devel
         - ripgrep
-        # Nix: official Fedora 44 package (daemon + CLI). /nix is a real
-        # dir bind-mounted from /var/nix (nix.mount); dirs pre-created by
-        # ublue-nix tmpfiles so the daemon-socket condition passes
-        - nix-daemon
         # Full video codecs: base-main already ships negativo17's
         # fedora-multimedia (full libavcodec + gstreamer-bad, priority 90);
         # add the missing pieces — mpv, gstreamer VA-API + ugly, and the
@@ -116,12 +112,6 @@ modules:
       - curl -sL -o /tmp/topgrade.tar.gz https://github.com/topgrade-rs/topgrade/releases/download/v17.9.0/topgrade-v17.9.0-x86_64-unknown-linux-gnu.tar.gz && tar -xzf /tmp/topgrade.tar.gz -C /usr/bin topgrade && chmod +x /usr/bin/topgrade
       # Flathub + ProtonPlus (flatpak repo file already shipped via files module)
       - flatpak remote-add --if-not-exists --system flathub /etc/flatpak/remotes.d/flathub.flatpakrepo && flatpak install -y --noninteractive flathub com.vysp3r.ProtonPlus
-      # bake the nix packages listed in nix-packages.txt into the image store
-      - >
-        mkdir -p /nix /var/nix &&
-        pkgs="$(grep -vE '^\s*(#|$)' /usr/share/ublue-qtile/nix-packages.txt | tr '\n' ' ')" &&
-        if [ -n "$pkgs" ]; then nix profile install --profile /nix/var/nix/profiles/default $pkgs; fi &&
-        cp -a /nix/. /var/nix/
       # cleanup
       - rm -rf /tmp/topgrade.tar.gz /tmp/system_files
 
