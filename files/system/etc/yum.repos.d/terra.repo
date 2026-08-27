@@ -1,0 +1,9 @@
+[terra]
+name=Terra $releasever (disabled by ublue-qtile)
+enabled=0
+#baseurl=https://repos.fyralabs.com/terra$releasever
+metalink=https://tetsudou.fyralabs.com/metalink?repo=terra$releasever&arch=$basearch
+metadata_expire=6h
+type=rpm
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-terra$releasever
