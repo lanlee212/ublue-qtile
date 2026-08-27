@@ -304,3 +304,17 @@ xone-kmod-common
 xwaylandvideobridge
 xwiimote-ng
 xwininfo
+waydroid
+waydroid-selinux
+python3-gbinder
+bazzite-portal
+ryzenadj
+uresourced
+inputattach-cec-units
+linux-cec
+ds-inhibit
+oversteer
+oversteer-udev
+ublue-os-just
+ublue-os-luks
+ublue-os-media-automount-udev
